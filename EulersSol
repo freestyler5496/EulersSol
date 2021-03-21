@@ -1,0 +1,33 @@
+%%[2]: EULERs Solution
+%%
+ 
+%
+k=sqrt(pi);
+%stepsize
+h=0.1;
+% initializiation and allocation of space for the vectors y and t
+s=0.1:h:0.5;
+N=length(s);
+t=s;
+y=zeros(1,N);
+%the initial condition
+y(1)=0;
+% the differential eqn function f(t,y) on the right hand side when in 
+%the form Dy=f(t,y)=pi*y+k*cos(t)
+for i=1:N-1
+    y(i+1)=y(i)+h*f(t(i),y(i))
+    t(i+1)=t(i)+h;
+end
+% plot Euler on the same figure
+figure(1)
+plot(t,y,'g')
+ylabel('sol(t)');
+xlabel('t');
+title('The Exact Solution and Numerical Euler Method Solution')
+hleg = legend('Exact','Euler');
+%% PERCENTAGE ERRORs in EULER METHOD Assuming the sol(t) is found
+errorEuler=zeros(1,N);
+for i=1:N
+    yexact=eval(sol(t(i)));
+    errorEuler(i)=abs((yexact- y(i))/yexact)*100 %Note vector y has the Euler Method results
+end
